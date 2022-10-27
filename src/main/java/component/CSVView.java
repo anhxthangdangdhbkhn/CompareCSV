@@ -1,6 +1,8 @@
 package component;
 
 import javax.swing.*;
+import javax.swing.event.CellEditorListener;
+import javax.swing.event.ChangeEvent;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -81,6 +83,9 @@ public class CSVView {
                     tableColumn.setCellRenderer(null);
                 }
 
+                OptionView optionView = new OptionView();
+                optionView.test();
+
 
                 //jTableCsv.removeColumn(tableColumn);
                // jTableCsv.getColumnModel().getColumn(col).
@@ -104,6 +109,25 @@ class ColumnColorRenderer extends DefaultTableCellRenderer {
     }
 }
 
-class columnRenderer extends  DefaultTableColumnModel{
+class EditableHeader extends JTableHeader implements CellEditorListener {
+    public final int HEADER_ROW = -10;
 
+    transient protected int editingColumn;
+
+    transient protected TableCellEditor cellEditor;
+
+    transient protected Component editorComp;
+
+
+    @Override
+    public void editingStopped(ChangeEvent e) {
+
+    }
+
+    @Override
+    public void editingCanceled(ChangeEvent e) {
+
+    }
 }
+
+
