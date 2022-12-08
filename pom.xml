@@ -143,6 +143,13 @@
             <version>2.2.20</version>
         </dependency>
 
+        <!-- 全角半角 -->
+        <dependency>
+            <groupId>org.terasoluna.gfw</groupId>
+            <artifactId>terasoluna-gfw-string</artifactId>
+            <version>5.7.1.RELEASE</version>
+        </dependency>
+
 
 
 

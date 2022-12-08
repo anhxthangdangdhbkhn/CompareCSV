@@ -1,10 +1,16 @@
 import component.ReadCsv;
 import component.MyCompareView;
+import hepper.JapaneseConvert;
+import hepper.JapaneseMode;
 import lombok.extern.slf4j.Slf4j;
+import org.terasoluna.gfw.common.fullhalf.DefaultFullHalf;
 import ui.CompareCVS;
 import ui.FMPGMApp;
 
 import java.util.Vector;
+
+import static hepper.JapaneseMode.HANKAKU_NOMI;
+import static hepper.JapaneseMode.ZENKAKU_NOMI;
 
 
 @Slf4j
@@ -16,6 +22,15 @@ public class App {
 
         CompareCVS compareCVS = new CompareCVS("CompareCSV");
         compareCVS.showWindow();
+
+
+//        String input ="ｻﾂﾎﾟﾛｼﾁﾕｳｵｳｸ";
+//        String result = JapaneseConvert.convert(input, ZENKAKU_NOMI);
+//        log.info("input: {}",input);
+//        log.info("result ZENKAKU_NOMI: {}",result);
+//        result = JapaneseConvert.convert(input, HANKAKU_NOMI);
+//        log.info("result HANKAKU_NOMI: {}",result);
+
 
 
 

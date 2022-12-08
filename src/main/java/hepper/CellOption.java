@@ -2,7 +2,6 @@ package hepper;
 
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
-import org.bouncycastle.util.Integers;
 
 @Getter
 @Setter
@@ -13,7 +12,8 @@ import org.bouncycastle.util.Integers;
 public class CellOption {
     private boolean select;
     private String insert;
-    private boolean convert;
+    private JapaneseMode japaneseMode;
+    private boolean deleteSpace;
 
     public CellOption(boolean select) {
         this.select = select;
@@ -24,14 +24,17 @@ public class CellOption {
         this.insert = insert;
     }
 
-    public String convertData(String data){
-        if(data ==null) return data;
+//    public CellOption(boolean select, String insert, int convert) {
+//        this.select = select;
+//        this.insert = insert;
+//        this.convert = convert;
+//    }
+
+    public String insertData(String data){
         if(insert.indexOf("*")>1){
             int setLength = Integer.parseInt(insert.substring(0,insert.indexOf("*")));
             if(data.length()<setLength){
                 String getInsertChar = insert.substring(insert.indexOf("*")+1,insert.length());
-//                String str ="000000000000000000000000000000000000000000";
-//                str = str.substring(0,setLength-data.length());
                 String add = getInsertChar;
                 for(int i=0;i<setLength-data.length();i++){
                     add= add +getInsertChar;
@@ -46,8 +49,6 @@ public class CellOption {
             int setLength = Integer.parseInt(insert.substring(0,insert.indexOf("#")));
             if(data.length()<setLength){
                 String getInsertChar = insert.substring(insert.indexOf("#")+1,insert.length());
-//                String str ="000000000000000000000000000000000000000000";
-//                str = str.substring(0,setLength-data.length());
                 String add = getInsertChar;
                 for(int i=0;i<setLength-data.length();i++){
                     add= add +getInsertChar;
@@ -60,5 +61,9 @@ public class CellOption {
 
         }
         return data;
+    }
+
+    public String japaneseConvert(String value){
+        return JapaneseConvert.convert(value,japaneseMode);
     }
 }

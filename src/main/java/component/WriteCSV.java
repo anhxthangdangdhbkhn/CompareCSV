@@ -1,6 +1,7 @@
 package component;
 
 import hepper.CellOption;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 
@@ -16,6 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 
+@Slf4j
 public class WriteCSV {
     private String fileName;
     private String path;
@@ -28,17 +30,18 @@ public class WriteCSV {
     }
 
     public void write(Vector<String> header, Vector<Vector> vectorCsvData) {
-        if(saveFile()){
+        if(setDirSaveFile()){
 
             try (
                     BufferedWriter writer = Files.newBufferedWriter(Paths.get(path + "\\" + fileName), Charset.forName("SJIS"));
                     CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT);)
             {
-                for (int i = 0; i < vectorCsvData.size(); i++) {
+
+                for (int i = 0; i < vectorCsvData.size(); i++)
+                {
                     Iterable iterable = new Vector(vectorCsvData.get(i));
+                    //log.info("CSV line: {}",vectorCsvData.get(i) );
                     csvPrinter.printRecord(iterable);
-
-
                 }
 //            csvPrinter.printRecord("1", "Sundar Pichai ♥", "CEO", "Google");
 //            csvPrinter.printRecord("2", "Satya Nadella", "CEO", "Microsoft");
@@ -69,7 +72,7 @@ public class WriteCSV {
     }
 
 
-    private boolean saveFile(){
+    private boolean setDirSaveFile(){
         jFileChooserExport = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
         jFileChooserExport.setDialogTitle("Choose a directory to save your file: ");
         jFileChooserExport.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);

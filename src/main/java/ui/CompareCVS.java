@@ -2,7 +2,7 @@ package ui;
 
 import component.CSVView;
 import component.CompareView;
-import component.PanelEditCsv;
+import panel.PanelEditCsv;
 import hepper.ABC;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
