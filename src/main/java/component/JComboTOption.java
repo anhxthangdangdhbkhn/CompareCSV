@@ -1,7 +1,7 @@
 package component;
 
 
-import hepper.JapaneseMode;
+import eenum.JapaneseMode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;

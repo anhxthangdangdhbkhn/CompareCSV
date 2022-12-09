@@ -1,5 +1,6 @@
 package hepper;
 
+import eenum.JapaneseMode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -16,11 +17,11 @@ public class JapaneseConvert {
 
     public static String convert(String data, JapaneseMode japaneseMode){
         if(japaneseMode == JapaneseMode.ZENKAKU_NOMI){
-            log.info("zenkakuNomi {} ",zenkakuNomi(data));
+           // log.info("zenkakuNomi {} ",zenkakuNomi(data));
             return zenkakuNomi(data);
         }
         else if (japaneseMode == JapaneseMode.HANKAKU_NOMI){
-            log.info("hankakuNomi {}",hankakuNomi(data));
+            //log.info("hankakuNomi {}",hankakuNomi(data));
             return hankakuNomi(data);
         }
         return data;

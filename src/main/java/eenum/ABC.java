@@ -1,4 +1,4 @@
-package hepper;
+package eenum;
 
 public enum ABC {
     A,

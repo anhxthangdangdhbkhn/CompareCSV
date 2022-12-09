@@ -1,16 +1,5 @@
-import component.ReadCsv;
-import component.MyCompareView;
-import hepper.JapaneseConvert;
-import hepper.JapaneseMode;
 import lombok.extern.slf4j.Slf4j;
-import org.terasoluna.gfw.common.fullhalf.DefaultFullHalf;
 import ui.CompareCVS;
-import ui.FMPGMApp;
-
-import java.util.Vector;
-
-import static hepper.JapaneseMode.HANKAKU_NOMI;
-import static hepper.JapaneseMode.ZENKAKU_NOMI;
 
 
 @Slf4j

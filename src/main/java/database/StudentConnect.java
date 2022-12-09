@@ -1,7 +1,5 @@
 package database;
 
-import student.Student;
-
 import java.sql.*;
 
 public class StudentConnect {
@@ -26,32 +24,32 @@ public class StudentConnect {
         }
     }
 
-    public long insertStudent(Student student){
-        String SQL = "INSERT INTO \"STUDENT\"(firstname,lastname,email) "
-                + "VALUES(?,?,?)";
-        long id = 0;
-        try(Connection conn = connect();
-        PreparedStatement pstmt = conn.prepareStatement(SQL,Statement.RETURN_GENERATED_KEYS)){
-            pstmt.setString(1,student.getFirstname());
-            pstmt.setString(2,student.getLastname());
-            pstmt.setString(3,student.getEmail());
-
-            int affectedRows = pstmt.executeUpdate();
-            if (affectedRows > 0) {
-                // get the ID back
-                try (ResultSet rs = pstmt.getGeneratedKeys()) {
-                    if (rs.next()) {
-                        id = rs.getLong(1);
-                    }
-                } catch (SQLException ex) {
-                    System.out.println(ex.getMessage());
-                }
-            }
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return id;
-    }
+//    public long insertStudent(Student student){
+//        String SQL = "INSERT INTO \"STUDENT\"(firstname,lastname,email) "
+//                + "VALUES(?,?,?)";
+//        long id = 0;
+//        try(Connection conn = connect();
+//        PreparedStatement pstmt = conn.prepareStatement(SQL,Statement.RETURN_GENERATED_KEYS)){
+//            pstmt.setString(1,student.getFirstname());
+//            pstmt.setString(2,student.getLastname());
+//            pstmt.setString(3,student.getEmail());
+//
+//            int affectedRows = pstmt.executeUpdate();
+//            if (affectedRows > 0) {
+//                // get the ID back
+//                try (ResultSet rs = pstmt.getGeneratedKeys()) {
+//                    if (rs.next()) {
+//                        id = rs.getLong(1);
+//                    }
+//                } catch (SQLException ex) {
+//                    System.out.println(ex.getMessage());
+//                }
+//            }
+//
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return id;
+//    }
 }

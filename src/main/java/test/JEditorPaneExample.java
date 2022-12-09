@@ -1,3 +1,5 @@
+package test;
+
 import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;

@@ -1,7 +1,6 @@
 package ui;
 
 import database.StudentConnect;
-import student.Student;
 
 import javax.swing.*;
 import java.awt.*;
@@ -109,10 +108,10 @@ public class StudentManager extends JFrame {
         jButtonSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                StudentConnect studentConnect = new StudentConnect();
-                Student student = new Student("dang","thang","anhxthangdang");
-                long re = studentConnect.insertStudent(student);
-                System.out.println("Re " + re);
+//                StudentConnect studentConnect = new StudentConnect();
+//                Student student = new Student("dang","thang","anhxthangdang");
+//                long re = studentConnect.insertStudent(student);
+//                System.out.println("Re " + re);
             }
         });
     }

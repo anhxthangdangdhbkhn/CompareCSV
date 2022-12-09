@@ -11,6 +11,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -23,24 +24,36 @@ public class WriteCSV {
     private String path;
     private Map<Integer, CellOption> mapCellOption;
     private JFileChooser jFileChooserExport;
+    private CSVSetting csvSetting;
 
-    public WriteCSV(String fileName) {
-        this.fileName = fileName;
-        this.mapCellOption = new HashMap<>();
+//    public WriteCSV(String fileName) {
+//        this.fileName = fileName +".csv";
+//        this.mapCellOption = new HashMap<>();
+//    }
+
+    public WriteCSV(String fileName, Map<Integer, CellOption> mapCellOption, CSVSetting csvSetting) {
+        this.fileName = fileName +".csv";
+        this.mapCellOption = mapCellOption;
+        this.csvSetting = csvSetting;
     }
 
     public void write(Vector<String> header, Vector<Vector> vectorCsvData) {
         if(setDirSaveFile()){
+            log.info("Write file Charset {}",csvSetting.getOpCharsetName());
+
 
             try (
-                    BufferedWriter writer = Files.newBufferedWriter(Paths.get(path + "\\" + fileName), Charset.forName("SJIS"));
+                    BufferedWriter writer = Files.newBufferedWriter(Paths.get(path + "\\" + fileName), Charset.forName(csvSetting.getOpCharsetName()));
+
                     CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT);)
             {
 
                 for (int i = 0; i < vectorCsvData.size(); i++)
                 {
-                    Iterable iterable = new Vector(vectorCsvData.get(i));
-                    //log.info("CSV line: {}",vectorCsvData.get(i) );
+                    Vector data = vectorCsvData.get(i);
+
+                    Iterable iterable = new Vector(data);
+                    log.info("CSV line: {}",vectorCsvData.get(i) );
                     csvPrinter.printRecord(iterable);
                 }
 //            csvPrinter.printRecord("1", "Sundar Pichai ♥", "CEO", "Google");

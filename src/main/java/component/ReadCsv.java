@@ -1,6 +1,6 @@
 package component;
 
-import hepper.ABC;
+import eenum.ABC;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -19,22 +19,24 @@ public class ReadCsv {
     private int resultFile;
     private File file;
     private String pathFile;
-    private Vector<String> vectorHeader = new Vector<>();
-    private Vector<Vector> vectorCsvData = new Vector<>();
+    private Vector<String> vectorHeader ;
+    private Vector<Vector> vectorCsvData;
     private Map<String,Integer> mapCellMaxLength;
+    private CSVSetting csvSetting;
 
 
-    public void readCvs(){
+    public void readCvsByFileChooser(){
 
         resultFile = jFileChooser.showOpenDialog(null);
         if(resultFile == JFileChooser.APPROVE_OPTION){
             pathFile = jFileChooser.getSelectedFile().getPath();
-
+            vectorCsvData = new Vector<>();
+            vectorHeader = new Vector<>();
             if(pathFile.contains(".csv") || pathFile.contains(".CSV")){
                 file = new File(pathFile);
                 InputStreamReader ir = null;
                 try {
-                    ir = new InputStreamReader(new FileInputStream(file),"SJIS");
+                    ir = new InputStreamReader(new FileInputStream(file),csvSetting.getIpCharsetName());
                     Iterable<CSVRecord> records = CSVFormat.DEFAULT.withHeader(ABC.class).parse(ir);
 
                     CSVRecord r = records.iterator().next();
@@ -91,8 +93,74 @@ public class ReadCsv {
         }
     }
 
-    public ReadCsv() {
-        jFileChooser = new JFileChooser();
+    public void readCvsByFileDrag(String path){
+        log.info("Input charset {}",csvSetting.getIpCharsetName());
+            pathFile = path;
+            if(pathFile.contains(".csv") || pathFile.contains(".CSV")){
+                file = new File(pathFile);
+                InputStreamReader ir = null;
+                try {
+                    ir = new InputStreamReader(new FileInputStream(file),csvSetting.getIpCharsetName());
+                    Iterable<CSVRecord> records = CSVFormat.DEFAULT.withHeader(ABC.class).parse(ir);
+
+                    CSVRecord r = records.iterator().next();
+                    Set<String> setHeader  = r.toMap().keySet();
+                    setHeader.forEach(s->{
+                        vectorHeader.add(s);
+                    });
+
+                    mapCellMaxLength = new HashMap<>();
+
+                    for(CSVRecord record:records){
+                        Vector<String> line = new Vector<>();
+                        record.toMap().forEach((k,v)->{
+
+                            if(mapCellMaxLength.containsKey(k)){
+                                Integer max = v.length();
+                                Integer current = mapCellMaxLength.get(k);
+                                if(max>current){
+                                    mapCellMaxLength.put(k,max);
+                                }
+
+                            }else {
+                                mapCellMaxLength.put(k,v.length());
+                            }
+
+
+                            line.add(v);
+                        });
+                        vectorCsvData.add(line);
+                    }
+
+
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }else{
+                JOptionPane.showMessageDialog(null,
+                        "CSVファイルを選択してください",
+                        "CSVインポート",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
     }
 
+
+//    public ReadCsv() {
+//        jFileChooser = new JFileChooser();
+//        vectorHeader = new Vector<>();
+//        vectorCsvData = new Vector<>();
+//        mapCellMaxLength = new HashMap<>();
+//    }
+
+    public ReadCsv(CSVSetting csvSetting) {
+        this.csvSetting = csvSetting;
+        jFileChooser = new JFileChooser();
+        vectorHeader = new Vector<>();
+        vectorCsvData = new Vector<>();
+        mapCellMaxLength = new HashMap<>();
+    }
 }
