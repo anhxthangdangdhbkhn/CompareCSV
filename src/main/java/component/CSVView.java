@@ -278,9 +278,9 @@ public class CSVView {
                         String key = jTableCsv.getValueAt(selectRow, 2).toString();
                         System.out.println("Key click: "+ key);
                         if(mapNewBase.containsKey(key) && mapOldBase.containsKey(key)){
-                            CompareView compareView = new CompareView("Compare");
+                            CompareView compareView = new CompareView("Compare",false);
                             compareView.showWindow();
-                            compareView.addVectorHeader(vectorNewHeader);
+                            compareView.setVectorHeader(vectorNewHeader);
 
                             ArrayList<Integer> list = new ArrayList<>();
 

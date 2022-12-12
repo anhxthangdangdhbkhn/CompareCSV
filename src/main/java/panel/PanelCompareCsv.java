@@ -53,7 +53,7 @@ public class PanelCompareCsv {
     private CSVView csvViewOld ;
     private Vector<String> vectorOldHeader;
     private Vector<Vector> vectorOldCsv;
-    private Vector<String> vectorChange;
+    private Vector<String> vectorKeyChange;
     private JPanel panelCsvCompare = new JPanel();
     private GridBagConstraints gbc = new GridBagConstraints();
 
@@ -462,7 +462,7 @@ public class PanelCompareCsv {
 
 //                         find old item
 
-                            vectorChange = new Vector<>();
+                            vectorKeyChange = new Vector<>();
                             if (mapNewBase.size() > mapOldBase.size()) {
                                 mapNewBase.forEach((key, data) -> {
                                     Vector item = mapOldBase.get(key);
@@ -488,7 +488,7 @@ public class PanelCompareCsv {
                                                 //System.out.println("item " + item);
                                                 vectorOldCsvData.add(item);
                                             }
-                                            vectorChange.add(key);
+                                            vectorKeyChange.add(key);
                                         }
                                     }
 
@@ -519,7 +519,7 @@ public class PanelCompareCsv {
                                                 item.set(columnLength, "change");
                                                 System.out.println("item " + item);
                                                 vectorOldCsvData.add(item);
-                                                vectorChange.add(key);
+                                                vectorKeyChange.add(key);
                                             }
                                         }
                                     }
@@ -590,34 +590,37 @@ public class PanelCompareCsv {
             jButtonCompareView.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    CompareView compareView = new CompareView("Compare list") ;
-                    compareView.addVectorHeader(vectorNewHeader);
+                    CompareView compareView = new CompareView("Compare list",true) ;
+                    //compareView.addVectorHeader(vectorNewHeader);
+                    compareView.setVectorHeader(vectorNewHeader);
+                    compareView.setMapNew(mapNewBase);
+                    compareView.setMapOld(mapOldBase);
+                    compareView.setVectorKeyChange(vectorKeyChange);
+                    compareView.setChangeLineSize(rowStatus[2]);
 
-                    Vector vectorChangeView = new Vector<>();
-                    vectorChangeView.add(vectorChange.get(1));
-                    vectorChangeView.add(vectorChange.get(2));
-                    vectorChangeView.add(vectorChange.get(3));
-                    vectorChangeView.add(vectorChange.get(4));
-                    vectorChangeView.add(vectorChange.get(5));
-                    vectorChangeView.add(vectorChange.get(6));
-                    vectorChangeView.add(vectorChange.get(7));
-                    vectorChangeView.add(vectorChange.get(8));
-                    vectorChangeView.add(vectorChange.get(9));
-                    vectorChangeView.add(vectorChange.get(10));
-                    vectorChangeView.add(vectorChange.get(11));
-                    vectorChangeView.add(vectorChange.get(12));
-                    vectorChangeView.add(vectorChange.get(13));
-                    vectorChangeView.add(vectorChange.get(14));
-                    vectorChangeView.add(vectorChange.get(15));
+                    Vector vectorKey = new Vector<>();
+//                    vectorKey.add(vectorKeyChange.get(1));
+//                    vectorKey.add(vectorKeyChange.get(2));
+//                    vectorKey.add(vectorKeyChange.get(3));
+//                    vectorKey.add(vectorKeyChange.get(4));
+//                    vectorKey.add(vectorKeyChange.get(5));
+//                    vectorKey.add(vectorKeyChange.get(6));
+//                    vectorKey.add(vectorKeyChange.get(7));
+//                    vectorKey.add(vectorKeyChange.get(8));
+//                    vectorKey.add(vectorKeyChange.get(9));
+//                    vectorKey.add(vectorKeyChange.get(10));
+//                    vectorKey.add(vectorKeyChange.get(11));
+//                    vectorKey.add(vectorKeyChange.get(12));
+//                    vectorKey.add(vectorKeyChange.get(13));
+//                    vectorKey.add(vectorKeyChange.get(14));
+//                    vectorKey.add(vectorKeyChange.get(15));
 
 
-                    compareView.listCompare(mapNewBase, mapOldBase,vectorChangeView);
+                    compareView.tableCompare(vectorKey);
 
-
-                    compareView.tableFinish();
                     compareView.showWindow();
 
-                    System.out.println(vectorChange);
+                    System.out.println(vectorKeyChange);
 
 
 
